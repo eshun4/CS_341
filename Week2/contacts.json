@@ -1,0 +1,30 @@
+[
+    {   
+        "firstName":" Derrick " , 
+        "lastName":"Agbezukey" , 
+        "email":"dagbuesco@byui.net" , 
+        "favoriteColor" :"blue", 
+        "birthday": "02/05/1980"
+    },
+    {   
+        "firstName":" Gabriel " , 
+        "lastName":"Ikpaetuk" , 
+        "email":"gIkpaetuk@byui.net" , 
+        "favoriteColor" :"green", 
+        "birthday": "02/05/1985"
+    },
+    {   
+        "firstName":" Eric" , 
+        "lastName":"Izekor" , 
+        "email":"eIzekoro@byui.net" , 
+        "favoriteColor" :"violet", 
+        "birthday": "02/05/1996"
+    },
+    {   
+        "firstName":" Papa" , 
+        "lastName":"Yaw" , 
+        "email":"pYaw@byui.net" , 
+        "favoriteColor" :"yellow", 
+        "birthday": "02/05/1999"
+    }
+]
