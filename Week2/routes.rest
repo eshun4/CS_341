@@ -1,6 +1,6 @@
 // LOCALHOST ### GET http://localhost:8080/contacts 
 ### GET http://localhost:8080/contacts/
-### GET http://localhost:8080/contacts/1
+### GET http://localhost:8080/contacts/:id
 
 
 
