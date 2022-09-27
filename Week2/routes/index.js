@@ -13,7 +13,7 @@ router.use('/contacts', contactRouter);
   
 // To handle any other route
 router.all("/*", (req,res) => {
-    res.send("Page not found");
+    res.send("Welcome to the HomePage.");
 });
 
 //Once you make the export below you can use al the routes from here in your main.js file
