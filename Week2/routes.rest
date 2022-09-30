@@ -1,40 +1,39 @@
-// Localhost ### GET http://localhost:8080/contacts/
-### Get contact by Id GET http://localhost:8080/contacts/6336375d0921f1cee68859e4
-### Create contact POST http://localhost:8080/contacts/addcontact HTTP/1.1 content-type: application/json
+# GET http://localhost:8080/contacts/
+### Get contact by Id GET http://localhost:8080/contacts/6336392c55abb9358731412f
+# Add contact POST http://localhost:8080/contacts/addcontact HTTP/1.1 
+# content-type: application/json
 
 # {
-# "firstName": " Kwame", "lastName": "jsldbvhdsilvbadslivj", "email": "devBarnes@byui.net","favoriteColor": "violet","birthday": "02/05/1999",
+#     "firstName":"Kweku", "lastName":"Sampson", "email":"ksampson@gmail.com", "favoriteColor":"Green", "birthday":"12/12/20"
 # }
 
 #Update contact by Id PATCH http://localhost:8080/contacts/6336375d0921f1cee68859e4 HTTP/1.1 content-type: application/json
 
 # {
-# "firstName": " James", "lastName": "Izekor", "email": "eIzekoro@byui.net","favoriteColor": "violet","birthday": "02/05/1996"
+#     "firstName": " James", "lastName": "Izekor", "email": "eIzekoro@byui.net","favoriteColor": "violet","birthday": "02/05/1996"
 # }
 
-//Delete Contact by Id DELETE http://localhost:8080/contacts/6336375d0921f1cee68859e4 HTTP/1.1
+### DELETE contact DELETE http://localhost:8080/contacts/63365674b5aac7c4a9ce067f HTTP/1.1
+
+
+
+
+
+
 
 // PRODUCTION ### GET https://kofisapi.onrender.com/contacts/
-### Get contact by Id GET http://localhost:8080/contacts/6336375d0921f1cee68859e4
-### Create contact POST http://localhost:8080/contacts/addcontact HTTP/1.1 content-type: application/json
+### Get contact by Id GET https://kofisapi.onrender.com/contacts/6336375d0921f1cee68859e4
+### Create contact POST https://kofisapi.onrender.com/contacts/addcontact HTTP/1.1 content-type: application/json
 
 # {
 # "firstName": " Kwame", "lastName": "jsldbvhdsilvbadslivj", "email": "devBarnes@byui.net","favoriteColor": "violet","birthday": "02/05/1999",
 # }
 
-#Update contact by Id PATCH http://localhost:8080/contacts/6336375d0921f1cee68859e4 HTTP/1.1 content-type: application/json
+#Update contact by Id PATCH https://kofisapi.onrender.com/contacts/6336375d0921f1cee68859e4 HTTP/1.1 content-type: application/json
 
 # {
 # "firstName": " James", "lastName": "Izekor", "email": "eIzekoro@byui.net","favoriteColor": "violet","birthday": "02/05/1996"
 # }
 
-//Delete Contact by Id DELETE http://localhost:8080/contacts/6336375d0921f1cee68859e4 HTTP/1.1
+//Delete Contact by Id DELETE https://kofisapi.onrender.com/contacts/6336375d0921f1cee68859e4 HTTP/1.1
 
-
-### RENDER
-### GET https://kofisapi.onrender.com/contacts/
-### GET https://kofisapi.onrender.com/contacts/:id
-### POST https://kofisapi.onrender.com/contacts/
-### POST https://kofisapi.onrender.com/contacts/addcontact
-### DELETE https://kofisapi.onrender.com/contacts/:id
-### UPDATE https://kofisapi.onrender.com/:id
