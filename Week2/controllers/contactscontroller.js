@@ -18,7 +18,7 @@ exports.store = async(req, res)=>{
 
 exports.storeMany = async(req, res)=>{
     console.log(contacts);
-    res.json({contacts: "Contacts are stored.", Kofi_contacts: contacts});
+    res.status(200).json({contacts: "Contacts are stored.", Kofi_contacts: contacts});
     const db = await connect();
     db.collection(process.env.DB_COLLECTION).insertMany(contacts);
 }
@@ -29,7 +29,6 @@ exports.findbyID = async(req, res)=>{
     const contact = await db.collection(process.env.DB_COLLECTION).find({_id}).toArray();
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json({contact});
-      
 }
 
 exports.updateBYID = async(req, res)=>{
