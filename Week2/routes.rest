@@ -16,7 +16,7 @@
 
 // PRODUCTION ### GET https://kofisapi.onrender.com/contacts/
 ### Get contact by Id GET https://kofisapi.onrender.com/contacts/6336375d0921f1cee68859e4
-### Create contact POST https://kofisapi.onrender.com/addcontact HTTP/1.1 content-type: application/json
+# POST https://kofisapi.onrender.com/contacts/addcontact HTTP/1.1 content-type: application/json
 
 # {
 # "firstName": " Kwame", "lastName": "jsldbvhdsilvbadslivj", "email": "devBarnes@byui.net","favoriteColor": "violet","birthday": "02/05/1999",

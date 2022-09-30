@@ -26,12 +26,10 @@ exports.storeMany = async(req, res)=>{
 exports.findbyID = async(req, res)=>{
     const _id = ObjectId(req.params.id);
     const db = await connect();
-    const contact = await db.collection(process.env.DB_COLLECTION).find({_id}).toArray().then(
-        (lists) => {
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(lists[0]);
-          }
-    );
+    const contact = await db.collection(process.env.DB_COLLECTION).find({_id}).toArray();
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json({contact});
+      
 }
 
 exports.updateBYID = async(req, res)=>{
