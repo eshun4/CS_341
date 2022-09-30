@@ -14,9 +14,9 @@ myEvent.on('test-event', (data) => {
     console.log(data);
 });
 
-contactsRouter.route('/').post(ContactsController.storeMany);
-contactsRouter.route('/').get(ContactsController.findAll).post(ContactsController.store);
-contactsRouter.route('/:id').get(ContactsController.findbyID).delete(ContactsController.delete);
+contactsRouter.route('/addcontact').post(ContactsController.store);
+contactsRouter.route('/').get(ContactsController.findAll).post(ContactsController.storeMany);
+contactsRouter.route('/:id').get(ContactsController.findbyID).patch(ContactsController.updateBYID).delete(ContactsController.delete);
 
 
   // To handle any other rout
@@ -33,7 +33,7 @@ module.exports = contactsRouter;
 //     myEvent.emit("test-event", contacts);
 //     res.send(contacts);
 // })
-//patch(ContactsController.updateBYID)
+
 // contactsRouter.get('/:id', async(req, res)=>{
 //     // console.log(req.params);
 //     const db = await connect();

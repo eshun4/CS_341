@@ -3,8 +3,11 @@ const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
 PORT = process.env.PORT;
+const bodyParser = require("body-parser");
 // const EventEmitter = require('events');
 // app.set('view engine', 'pug')
+
+app.use(bodyParser.json());
 
 const routes = require('./routes/');
 app.use(routes);

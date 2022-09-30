@@ -2,7 +2,9 @@
 ### GET http://localhost:8080/contacts/
 ### GET http://localhost:8080/contacts/:id
 ### POST http://localhost:8080/contacts/
+### POST http://localhost:8080/contacts/addcontact
 ### DELETE http://localhost:8080/contacts/:id
+### UPDATE http://localhost:8080/contacts/:id
 
 
 
@@ -11,4 +13,6 @@
 ### GET https://kofisapi.onrender.com/contacts/
 ### GET https://kofisapi.onrender.com/contacts/:id
 ### POST https://kofisapi.onrender.com/contacts/
+### POST https://kofisapi.onrender.com/contacts/addcontact
 ### DELETE https://kofisapi.onrender.com/contacts/:id
+### UPDATE https://kofisapi.onrender.com/:id
