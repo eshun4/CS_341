@@ -38,15 +38,7 @@ exports.updateBYID = async(req, res)=>{
     const _id = ObjectId(req.params.id);
     const db = await connect();
     const response = await db.collection(process.env.DB_COLLECTION).updateOne({_id}, {$set:req.body});
-    if (response.modifiedCount > 0) {
-        res.status(204).send();
-        console.log(JSON.stringify(req.body));
-        // res.json({data: "Contact is updated."});
-      } else {
-        res.status(500).json(response.error || 'An error occurred while updating the contact.');
-      }
-    
-   
+    res.status(200).json({data: "Contact is Updated."});
 }
 
 exports.delete = async(req, res)=>{
@@ -54,5 +46,5 @@ exports.delete = async(req, res)=>{
     const _id = ObjectId(req.params.id);
     const db = await connect();
     db.collection(process.env.DB_COLLECTION).deleteOne({_id});
-    res.status(200).json({data: "Contact is deleted."});
+    res.status(200).json({data: "Contact is Deleted."});
 }
