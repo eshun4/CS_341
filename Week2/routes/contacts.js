@@ -16,7 +16,7 @@ myEvent.on('test-event', (data) => {
 
 contactsRouter.route('/addcontact').post(ContactsController.store);
 contactsRouter.route('/').get(ContactsController.findAll).post(ContactsController.storeMany);
-contactsRouter.route('/:id').get(ContactsController.findbyID).patch(ContactsController.updateBYID).delete(ContactsController.delete);
+contactsRouter.route('/:id').get(ContactsController.findbyID).put(ContactsController.updateBYID).delete(ContactsController.delete);
 
 
   // To handle any other rout

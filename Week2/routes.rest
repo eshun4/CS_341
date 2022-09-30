@@ -7,7 +7,7 @@
 #     "firstName":"Kweku", "lastName":"Sampson", "email":"ksampson@gmail.com", "favoriteColor":"Green", "birthday":"12/12/20"
 # }
 
-#Update contact by Id PATCH http://localhost:8080/contacts/6336375d0921f1cee68859e4 HTTP/1.1 content-type: application/json
+#Update contact by Id PUT http://localhost:8080/contacts/6336375d0921f1cee68859e4 HTTP/1.1 content-type: application/json
 
 # {
 #     "firstName": " James", "lastName": "Izekor", "email": "eIzekoro@byui.net","favoriteColor": "violet","birthday": "02/05/1996"
@@ -29,7 +29,7 @@
 # "firstName": " Kwame", "lastName": "jsldbvhdsilvbadslivj", "email": "devBarnes@byui.net","favoriteColor": "violet","birthday": "02/05/1999",
 # }
 
-#Update contact by Id PATCH https://kofisapi.onrender.com/contacts/6336375d0921f1cee68859e4 HTTP/1.1 content-type: application/json
+#Update contact by Id PUT https://kofisapi.onrender.com/contacts/6336375d0921f1cee68859e4 HTTP/1.1 content-type: application/json
 
 # {
 # "firstName": " James", "lastName": "Izekor", "email": "eIzekoro@byui.net","favoriteColor": "violet","birthday": "02/05/1996"
