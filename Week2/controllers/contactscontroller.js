@@ -2,6 +2,7 @@ const connect = require('../database/db');
 const contacts = require('../contacts.json');
 const { ObjectId } = require("mongodb");
 
+
 exports.findAll= async(req, res)=>{
     const db = await connect();
     const contacts = await db.collection(process.env.DB_COLLECTION).find().toArray();

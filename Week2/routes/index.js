@@ -1,14 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const contactRouter = require('../routes/contacts');
-// const path = require('path');
 
-
-// router.get('/', (req, res) => {
-//     console.log(__dirname );
-//     res.render('index', {name: "Kofi"});
-// });
-
+router.use('/', require('./swagger'));
 router.use('/contacts', contactRouter);
   
 // To handle any other route
