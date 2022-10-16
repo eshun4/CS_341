@@ -5,8 +5,8 @@ const doc = {
     title: 'My StudyHub API',
     description: 'StudyHub API'
   },
-  host: 'http://localhost:2917',
-  schemes: ['http']
+  host: 'kofisapi.onrender.com',
+  schemes: ['https']
 };
 
 const outputFile = '../models/jsons/swagger.json';
