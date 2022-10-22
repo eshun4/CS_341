@@ -1,46 +1,36 @@
 const express = require("express");
 const usersRouter = express.Router();
-const connect = require('../database/database');
-const { ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
-var newDate = new Date();
-var datetime =  newDate.toLocaleString();
 const dotenv = require("dotenv");
 dotenv.config({ path: '../../.env' });
-// const encrypt = require("mongoose-encryption");
-// const md5 = require("md5");
 const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose')
 const userCont = require("../controllers/user");
 const authCont = require("../controllers/auth");
 const cardRouter = require('../routes/card');
+const userSchema = require('../models/schemas/User');
+
+
+
+
+
 
 usersRouter.use('/', require('../swagger/swagger'));
 usersRouter.use("/card", cardRouter);
 //Login user
 usersRouter.route("/users/:first_name").get(userCont.byName);
+usersRouter.route("/users/profile/:id").post(authCont.profile);
  //Logout user
 usersRouter.route("/users").get(userCont.allUsers)
 usersRouter.route("/").get(userCont.home);
 
 
-
-
-
-const userSchema = new mongoose.Schema({
-    username: String,
-    password :String,
-    first_name :String,
-    last_name : String,
-    createdAt: ""
-});
-
 const mysecret = process.env.SECRET
 usersRouter.use(session({ 
     secret:mysecret,
     resave:false,
-    saveUninitialized:true,
+    saveUninitialized:true, //Remember to set this to false 
 }));
 
 usersRouter.use(passport.initialize());
