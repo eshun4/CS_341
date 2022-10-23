@@ -20,7 +20,6 @@ exports.byName = (async(req, res)=>{
             res.setHeader('Content-Type', 'application/json');
             res.status(200).send(docs);
         });
-        
     }catch(err){
         res.send(err.message);
     }

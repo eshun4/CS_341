@@ -25,7 +25,6 @@ const userSchema = new mongoose.Schema({
         validate:usernameValidator[0].validator1 ,},
     password :{
         type:String, 
-        select: false,
         min: [6, 'Must be at least , got {VALUE}'],
         max: 20,
         validate:usernameValidator[0].validator2,},

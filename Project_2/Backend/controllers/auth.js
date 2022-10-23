@@ -47,7 +47,7 @@ exports.register = (async(req, res)=>{
         password:req.body.password,
         });
     // var password = 
-    User.register({username:registeringUser.username}, registeringUser.password, function(err, user){
+    User.register(registeringUser, registeringUser.password, function(err, user){
         if(err){
             if(!err.errors){
                 res.status(500).send(err.message);
@@ -57,10 +57,10 @@ exports.register = (async(req, res)=>{
             }
         }else{
             passport.authenticate("local")(req,res, function(){
-                res.send(user);
-            })
+                res.status(200).send(user);
+            });
         }
-    })
+    });
 });
 
 exports.login= (async(req, res)=>{
@@ -93,7 +93,7 @@ exports.login= (async(req, res)=>{
 exports.logout = (async(req,res)=>{
     req.logout((err, response)=>{
         if(err){
-            res.send(err.message);
+            res.status(200).send(err.message);
         }else{
             res.send({message:"Logout Successful."});
         }

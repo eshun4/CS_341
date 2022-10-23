@@ -1,15 +1,8 @@
 const connect = require('../database/database');
 const mongoose = require("mongoose");
 const { ObjectId } = require("mongodb");
-var newDate = new Date();
-
-const cardSchema = new mongoose.Schema({
-    question : String,
-    answer: String,
-    hints_notes: String,
-    createdAt: String
-});
-
+const convertError = require("../utilities/handlers");
+const cardSchema = require("../models/schemas/card");
 
 
 //This is to create a card
@@ -22,12 +15,11 @@ exports.create = (async(req, res)=>{
                 question: req.body.question,
                 answer: req.body.answer,
                 hints_notes: req.body.hints_notes,
-                createdAt: newDate.toLocaleString(),
             }
         );
         newCard.save((err, card)=>{
         if(err){
-            res.send(err.message);
+            res.status(500).send(convertError(err.errors));
         }else{
             res.setHeader('Content-Type', 'application/json');
             res.send({
@@ -39,7 +31,7 @@ exports.create = (async(req, res)=>{
         }  
     });
     }catch(err){
-        res.send(err.message);
+        res.status(500).send(err.message);
     }
 });
 
@@ -51,7 +43,7 @@ exports.findCard = (async(req, res)=>{
         Card.findOne({_id:ObjectId(req.params.id)}, async(err, card)=>{
             if(err){
                 res.setHeader('Content-Type', 'application/json');
-                res.send({error: err.message});
+                res.status(500).send({error: convertError(err.errors)});
             }else{
                 res.send(card);
             }
@@ -72,15 +64,15 @@ exports.updatebyID = (async(req, res)=>{
             answer: req.body.answer,
             hints_notes: req.body.hints_notes, }}, (err, newcard)=>{
             if(err){
-                res.send(err.message);
+                res.send(convertError(err.errors));
             }else{
-                res.sendStatus(200);
+                res.status(500).sendStatus(200);
             }
         });
 
     }catch(e){
         console.log(e);
-        res.send(e.message);
+        res.status(500).send(e.message);
     }
 });
 
@@ -91,7 +83,7 @@ exports.deleteById = (async(req, res)=>{
         var Card = db.model(process.env.DB_COLLECTION_2, cardSchema );
         var allCards = Card.findOneAndDelete({ _id: ObjectId(req.params.id )}, (err, card)=>{
             if(err){
-                res.send(err.message);
+                res.status(500).send(convertError(err.errors));
             }else{
             res.send({message: "Delete was successful."});
             }
@@ -99,6 +91,6 @@ exports.deleteById = (async(req, res)=>{
 
     }catch(e){
         console.log(e);
-        res.send(e.message);
+        res.status(500).send(e.message);
     }
 });

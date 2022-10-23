@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config({path: "../Project_2/.env" });
 const PORT = process.env.PORT;
 const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({extended:true}), bodyParser.json());
+
 
  const card = {
     "Question" : "",
@@ -39,7 +39,7 @@ const folder = {
     "datetime": ""
 }
 
-
+app.use(bodyParser.urlencoded({extended:true}), bodyParser.json());
 const routes = require('./Backend/routes/user');
 app.use(routes);
 
