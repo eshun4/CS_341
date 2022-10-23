@@ -1,10 +1,9 @@
 const connect = require('../database/database');
 const user = require("../routes/user");
 const mongoose = require("mongoose");
-const userSchema = require("../routes/user");
+const userSchema = require("../models/schemas/User");
 const profileSchema = require("../models/schemas/profile");
 const convertError = require("../utilities/handlers");
-
 
 // const userSchema = user.userSchema;
 exports.home =(async(req, res)=>{
@@ -15,8 +14,8 @@ exports.home =(async(req, res)=>{
 exports.byName = (async(req, res)=>{
     try{
         var db =  await connect();
-        var User = db.model(process.env.DB_COLLECTION_1, userSchema);
-        newUser = User.find({'first_name' : new RegExp(req.params.first_name, 'i')}, function(err, docs){
+        var Profile = db.model(process.env.DB_COLLECTION_5, profileSchema);
+        newUser = Profile.find({'first_name' : new RegExp(req.params.first_name, 'i')}, function(err, docs){
             res.setHeader('Content-Type', 'application/json');
             res.status(200).send(docs);
         });
@@ -29,9 +28,9 @@ exports.byName = (async(req, res)=>{
 exports.allUsers = (async(req, res)=>{
     try{
         var db =  await connect();
-        var User = db.model(process.env.DB_COLLECTION_1, userSchema);
-        newUser = await User.find({});
-        res.status(200).send(newUser);
+        var Profile = db.model(process.env.DB_COLLECTION_5, profileSchema);
+        newUser = await Profile.find({});
+        res.send(newUser);
     }catch(err){
         res.send(err.message);
     }
