@@ -83,12 +83,6 @@
                     },
                     "password": {
                       "example": "any"
-                    },
-                    "first_name": {
-                      "example": "any"
-                    },
-                    "last_name": {
-                      "example": "any"
                     }
                   }
               }
@@ -169,8 +163,8 @@
             }
           ],
           "responses": {
-            "200": {
-              "description": "Success"
+            "201": {
+              "description": "Created"
             }
           }
         }
