@@ -6,10 +6,10 @@
       "description": "StudyHub API",
       "version": "1.0.0"
     },
-    "host": "kofisapi.onrender.com",
+    "host": "localhost:2917",
     "basePath": "/",
     "schemes": [
-      "https"
+      "http"
     ],
     "tags": [
       {
@@ -23,6 +23,10 @@
       {
         "name": "Authentication.",
         "description": "All Authentication Routes."
+      },
+      {
+        "name": "OAuth 2.0.",
+        "description": "Google Authentication."
       },
       {
         "name": "Logout.",
@@ -550,6 +554,21 @@
           },
           "responses": {
             "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/google": {
+        "get": {
+          "tags": [
+            "OAuth 2.0."
+          ],
+          "description": "",
+          "parameters": [
+          ],
+          "responses": {
+            "200": {
               "description": "Created"
             }
           }
