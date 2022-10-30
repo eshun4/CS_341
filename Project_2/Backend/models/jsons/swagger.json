@@ -6,7 +6,7 @@
       "description": "StudyHub API",
       "version": "1.0.0"
     },
-    "host": "localhost:2917",
+    "host": "kofisapi.onrender.com",
     "basePath": "/",
     "schemes": [
       "http"
