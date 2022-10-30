@@ -5,7 +5,8 @@ const doc = {
     title: 'My StudyHub API',
     description: 'StudyHub API'
   },
-  host: 'kofisapi.onrender.com',
+  
+  host: 'localhost:2917',
   schemes: ['https']
 };
 

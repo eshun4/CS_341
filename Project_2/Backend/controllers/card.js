@@ -1,15 +1,29 @@
 const connect = require('../database/database');
-const mongoose = require("mongoose");
 const { ObjectId } = require("mongodb");
 const convertError = require("../utilities/handlers");
 const cardSchema = require("../models/schemas/card");
+const ENVIRONMENT_VARIABLES = require("../encryption/dotenv");
 
+
+
+//Find all cards 
+exports.getALL =(async(req,res)=>{
+    var db = await connect();
+    var Card = db.model(ENVIRONMENT_VARIABLES.Database_Collection_2, cardSchema );
+    Card.find({}, (err,card)=>{
+        if(err){
+            res.status(500).send(err.message);
+        }else{
+            res.status(200).send(card);
+        }
+    })
+})
 
 //This is to create a card
 exports.create = (async(req, res)=>{
     try{
         var db =  await connect();
-        var Card = db.model(process.env.DB_COLLECTION_2, cardSchema );
+        var Card = db.model(ENVIRONMENT_VARIABLES.Database_Collection_2, cardSchema );
         const newCard = new Card(
             {
                 question: req.body.question,
@@ -39,7 +53,7 @@ exports.create = (async(req, res)=>{
 exports.findCard = (async(req, res)=>{
     try{
         var db =  await connect();
-        var Card = db.model(process.env.DB_COLLECTION_2, cardSchema );
+        var Card = db.model(ENVIRONMENT_VARIABLES.Database_Collection_2, cardSchema );
         Card.findOne({_id:ObjectId(req.params.id)}, async(err, card)=>{
             if(err){
                 res.setHeader('Content-Type', 'application/json');
@@ -59,7 +73,7 @@ exports.findCard = (async(req, res)=>{
 exports.updatebyID = (async(req, res)=>{
     try{
         var db =  await connect();
-        var Card = db.model(process.env.DB_COLLECTION_2, cardSchema );
+        var Card = db.model(ENVIRONMENT_VARIABLES.Database_Collection_2, cardSchema );
         var allCards = Card.findByIdAndUpdate({ _id: ObjectId(req.params.id)}, { $set: { question: req.body.question,
             answer: req.body.answer,
             hints_notes: req.body.hints_notes, }}, (err, newcard)=>{
@@ -80,7 +94,7 @@ exports.updatebyID = (async(req, res)=>{
 exports.deleteById = (async(req, res)=>{
     try{
         var db =  await connect();
-        var Card = db.model(process.env.DB_COLLECTION_2, cardSchema );
+        var Card = db.model(ENVIRONMENT_VARIABLES.Database_Collection_2, cardSchema );
         var allCards = Card.findOneAndDelete({ _id: ObjectId(req.params.id )}, (err, card)=>{
             if(err){
                 res.status(500).send(convertError(err.errors));

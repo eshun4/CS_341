@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-dotenv.config({ path: '../../.env' });
+const ENVIRONMENT_VARIABLES = require("../../encryption/dotenv");
 
 const profileSchema = new mongoose.Schema({
     first_name :{
@@ -9,12 +8,12 @@ const profileSchema = new mongoose.Schema({
     last_name : {
         type:String, 
         required:[true, "Lastname is required."]},
-        user: [{
+    user: [{
             type:mongoose.Types.ObjectId, 
-            ref:process.env.DB_COLLECTION_1, }]
+            ref:ENVIRONMENT_VARIABLES.Database_Collection_1, }]
 },{
     timestamps: true,
   });
 
-module.exports = mongoose.model(process.env.DB_COLLECTION_5, profileSchema);
+// module.exports = mongoose.model(process.env.DB_COLLECTION_5, profileSchema);
 module.exports = profileSchema;

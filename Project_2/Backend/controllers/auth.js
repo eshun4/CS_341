@@ -1,47 +1,60 @@
 const connect = require('../database/database');
 const { ObjectId } = require("mongodb");
-const dotenv = require("dotenv");
-dotenv.config({ path: '../../.env' });
+const ENVIRONMENT_VARIABLES = require("../encryption/dotenv");
 const convertError = require("../utilities/handlers");
 const passport = require('passport');
 const userSchema= require("../models/schemas/User");
 const profileSchema= require("../models/schemas/profile");
-var ID;
+const jwt = require('jsonwebtoken');
 
-// Upload current user's profile
-exports.profile = (
-    async(req, res)=>{
+
+//JWT Strategy
+exports.JWT = async function (jwtPayload, cb) {
         var db = await connect();
-        var Profile = db.model(process.env.DB_COLLECTION_5, profileSchema);
-        var User = db.model(process.env.DB_COLLECTION_1, userSchema);
-        User.find({_id:ObjectId(req.params)},{},function (err, users) {
-            var profile = new Profile({
-                first_name:req.body.first_name,
-                last_name:req.body.last_name,
-                user: users
-            });
-            var profile = profile.save((err, user)=>{
-                if(!err){
-                     res.status(200).send(user);
-                     console.log(user);
-                    }else{
-                    res.status(200).send(convertError(err.errors));
-                }
-            });
+        var User =db.model(ENVIRONMENT_VARIABLES.Database_Collection_1, userSchema);  
+       //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
+       return User.findOne(jwtPayload.id)
+          .then(user => {
+
+              return cb(null, user);
+          })
+          .catch(err => {
+              return cb(err);
         });
-        // Profile.findOne({_id:ObjectId("6354672dbb9b732456cf8e9b")},(err,user)=>{
-        //     res.send(user);
+}
 
-        // }).populate(process.env.DB_COLLECTION_1);
-        // res.send(profile);
-        
 
-});
+
+//Google Strategy
+exports.GoogleStrategy = async function(accessToken, refreshToken, profile, done) {
+    var db = await connect();    
+    db.model(ENVIRONMENT_VARIABLES.Database_Collection_1, userSchema).findOrCreate({ googleId: profile.id, username:profile.emails[0].value, 
+    }, function (err, user) {
+        var use = ({
+            id:user.id,
+            username:user.username,
+            profile:profile._json,
+            token:accessToken
+        });
+      if(err){
+        console.log(err.message)
+      }
+      return done(err,use,use.token);
+    });
+  }
+
+  
+// Google sign in
+exports.googleSignIn = passport.authenticate('google', {session: true, scope: ['profile', 'email' ] ,successRedirect : '/dashboard', accessType:'offline' });
+
+
+
+
 
 // User Schema
 exports.register = (async(req, res)=>{
     var db = await connect();
-    var User = db.model(process.env.DB_COLLECTION_1, userSchema);
+    var User = db.model(ENVIRONMENT_VARIABLES.Database_Collection_1, userSchema);
     const registeringUser =new User({
         username:req.body.username,
         password:req.body.password,
@@ -50,50 +63,65 @@ exports.register = (async(req, res)=>{
     User.register(registeringUser, registeringUser.password, function(err, user){
         if(err){
             if(!err.errors){
-                res.status(500).send(err.message);
+                res.status(500).send(err);
             }
             else{
                 res.status(500).send(convertError(err.errors));
             }
         }else{
-            passport.authenticate("local")(req,res, function(){
-                res.status(200).send(user);
+            passport.authenticate("local",)(req,res, function(){
+                const token = jwt.sign(user.toJSON(), ENVIRONMENT_VARIABLES.Database_SECRET, {
+                    expiresIn: "730h"
+                } );
+                return res.status(201).json({
+                    user, 
+                    success: true,
+                    token: 'bearer ' + token, });
             });
         }
     });
 });
 
+//login Schema
 exports.login= (async(req, res)=>{
     var db =  await connect();
-    var User = db.model(process.env.DB_COLLECTION_1, userSchema);
+    var User = db.model(ENVIRONMENT_VARIABLES.Database_Collection_1, userSchema);
 
     const user = new User({
         username:req.body.username,
         password:req.body.password
     });
-    req.login(user, function(err){
-        if(err){
-            if(!err.errors){
-                res.status(500).send(err.message);
-            }
-            else{
-                res.status(500).send(convertError( err.errors));
-            }
-        }else{
-            passport.authenticate("local")(req,res, function(){
-                res.send({
-                    username: user.username,
-                    _id:ObjectId (user._id)
-                });
+    passport.authenticate('local', {session: false}, (err, user, info) => {
+        if (err || !user) {
+            return res.status(400).json({
+                message: info ? info.message : 'Login failed',
+                user   : user
             });
         }
+
+        req.login(user, {session: false}, (err) => {
+            if (err) {
+                res.send(err);
+            }
+
+            const token = jwt.sign(user.toJSON(), ENVIRONMENT_VARIABLES.Database_SECRET, {
+                expiresIn: "730h"
+            });
+
+            return res.status(200).json({
+                user, 
+                success: true,
+                token: 'bearer ' + token, });
+        });
     })
+    (req, res);
 });
 
+//logout
 exports.logout = (async(req,res)=>{
     req.logout((err, response)=>{
         if(err){
-            res.status(200).send(err.message);
+            res.status(200).send(err);
         }else{
             res.send({message:"Logout Successful."});
         }

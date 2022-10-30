@@ -1,5 +1,6 @@
-{
-    "swagger": "2.0",
+
+  {
+    "openapi": "3.0.0",
     "info": {
       "title": "My StudyHub API",
       "description": "StudyHub API",
@@ -10,17 +11,43 @@
     "schemes": [
       "https"
     ],
-    "paths": {
-      "/api-docs": {
-        "get": {
-          "description": "",
-          "parameters": [],
-          "responses": {}
-        }
+    "tags": [
+      {
+        "name": "Homepage.",
+        "description": "Homepage Route."
       },
+      {
+        "name": "Documentation.",
+        "description": "Documentation Route."
+      },
+      {
+        "name": "Authentication.",
+        "description": "All Authentication Routes."
+      },
+      {
+        "name": "Logout.",
+        "description": "Logout Route."
+      },
+      {
+        "name": "Card.",
+        "description": "All Card resources."
+      },
+      {
+        "name": "Folder.",
+        "description": "All Folder resources."
+      },
+      {
+        "name": "Collection.",
+        "description": "All Collection resources."
+      }
+    ],
+    "paths": {
       "/": {
         "get": {
           "description": "",
+          "tags": [
+            "Homepage."
+          ],
           "produces": [
             "application/json"
           ],
@@ -32,34 +59,16 @@
           }
         }
       },
-      "/users": {
+      "/api-docs": {
         "get": {
           "description": "",
+          "tags": [
+            "Documentation."
+          ],
           "produces": [
             "application/json"
           ],
           "parameters": [],
-          "responses": {
-            "200": {
-              "description": "OK"
-            }
-          }
-        }
-      },
-      "/users/{first_name}": {
-        "get": {
-          "description": "",
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "first_name",
-              "in": "path",
-              "required": true,
-              "type": "string"
-            }
-          ],
           "responses": {
             "200": {
               "description": "OK"
@@ -70,13 +79,17 @@
       "/register": {
         "post": {
           "description": "",
+          "tags": [
+            "Authentication."
+          ],
           "parameters": [
-            {
-              "name": "body",
-              "in": "body",
-              "schema": {
-                "type": "object",
-                "properties": 
+          ],
+          "requestBody":{
+            "content": {
+              "application/json": {
+                "schema":{
+                  "type": "object",
+                  "properties": 
                   {
                     "username": {
                       "example": "email@email.com"
@@ -85,9 +98,11 @@
                       "example": "any"
                     }
                   }
+                }
+                
               }
             }
-          ],
+          },
           "responses": {
             "200": {
               "description": "Success"
@@ -98,13 +113,17 @@
       "/login": {
         "post": {
           "description": "",
+          "tags": [
+            "Authentication."
+          ],
           "parameters": [
-            {
-              "name": "body",
-              "in": "body",
-              "schema": {
-                "type": "object",
-                "properties": 
+          ],
+          "requestBody":{
+            "content": {
+              "application/json": {
+                "schema":{
+                  "type": "object",
+                  "properties": 
                   {
                     "username": {
                       "example": "email@email.com"
@@ -113,9 +132,11 @@
                       "example": "any"
                     }
                   }
+                }
+                
               }
             }
-          ],
+          },
           "responses": {
             "200": {
               "description": "Success"
@@ -126,6 +147,9 @@
       "/logout": {
         "get": {
           "description": "",
+          "tags": [
+            "Logout."
+          ],
           "produces": [
             "application/json"
           ],
@@ -138,16 +162,45 @@
           }
         }
       },
-      "/card/create": {
-        "post": {
+      "/card/all": {
+        "get": {
+          "tags": [
+            "Card."
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "description": "",
           "parameters": [
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/card/create": {
+        "post": {
+          "tags": [
+            "Card."
+          ],
+          "security": [
             {
-              "name": "body",
-              "in": "body",
-              "schema": {
-                "type": "object",
-                "properties": 
+              "bearerAuth": []
+            }
+          ],
+          "description": "",
+          "parameters": [     
+          ],
+          "requestBody":{
+            "content": {
+              "application/json": {
+                "schema":{
+                  "type": "object",
+                  "properties": 
                   {
                     "question": {
                       "example": "An example question?"
@@ -159,9 +212,11 @@
                       "example": "An example of a hint"
                     }
                   }
+                }
+                
               }
             }
-          ],
+          },
           "responses": {
             "201": {
               "description": "Created"
@@ -170,7 +225,18 @@
         }
       },
       "/card/{id}": {
+        "tags": [
+          "Card."
+        ],
         "get": {
+          "tags": [
+            "Card."
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "description": "",
           "produces": [
             "application/json"
@@ -190,6 +256,14 @@
           }
         },
         "put": {
+          "tags": [
+            "Card."
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "description": "",
           "parameters": [
             {
@@ -197,26 +271,30 @@
               "in": "path",
               "required": true,
               "type": "string"
-            },
-            {
-              "name": "body",
-              "in": "body",
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "question": {
-                    "example": "any"
-                  },
-                  "answer": {
-                    "example": "any"
-                  },
-                  "hints_notes": {
-                    "example": "any"
-                  }
-                }
-              }
             }
           ],
+          "requestBody":{
+            "content": {
+              "application/json": {
+                "schema":{
+                  "type": "object",
+                  "properties": 
+                  {
+                    "question": {
+                      "example": "any"
+                    },
+                    "answer": {
+                      "example": "any"
+                    },
+                    "hints_notes": {
+                      "example": "any"
+                    }
+                  }
+                }
+                
+              }
+            }
+          },
           "responses": {
             "200": {
               "description": "Success"
@@ -224,6 +302,14 @@
           }
         },
         "delete": {
+          "tags": [
+            "Card."
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
           "description": "",
           "parameters": [
             {
@@ -239,6 +325,352 @@
             }
           }
         }
+      },
+      "/folder/all": {
+        "get": {
+          "tags": [
+            "Folder."
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "description": "",
+          "parameters": [
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/folder/create": {
+        "post": {
+          "tags": [
+            "Folder."
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "description": "",
+          "parameters": [
+          ],
+          "requestBody":{
+            "content": {
+              "application/json": {
+                "schema":{
+                  "type": "object",
+                  "properties": 
+                  {
+                    "name": {
+                      "example": "any"
+                    },
+                    "description": {
+                      "example": "any"
+                    },
+                    "collections": [],
+                    "created_by": []
+                  }
+                }
+                
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/folder/{id}": {
+        "get": {
+          "tags": [
+            "Folder."
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "description": "",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "Folder."
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "requestBody":{
+            "content": {
+              "application/json": {
+                "schema":{
+                  "type": "object",
+                  "properties": 
+                  {
+                    "name": {
+                      "example": "any"
+                    },
+                    "description": {
+                      "example": "any"
+                    },
+                    "collections": [],
+                    "created_by": []
+                  }
+                }
+                
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "Folder."
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/collection/all": {
+        "get": {
+          "tags": [
+            "Collection."
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "description": "",
+          "parameters": [
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/collection/create": {
+        "post": {
+          "tags": [
+            "Collection."
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "description": "",
+          "parameters": [ ],
+          "requestBody":{
+            "content": {
+              "application/json": {
+                "schema":{
+                  "type": "object",
+                  "properties": 
+                  {
+                    "class": {
+                      "example": "An example class."
+                    },
+                    "year": {
+                      "example": "An example year."
+                    },
+                    "semester": {
+                      "example": "An example of a semester."
+                    },
+                    "teacher": {
+                      "example": "An example teacher."
+                    },
+                    "school": {
+                      "example": "An example school."
+                    },
+                    "author": [],
+                    "cards": [],
+                    "belongsToFolder": []
+                  }
+                }
+                
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/collection/{id}": {
+        "get": {
+          "tags": [
+            "Collection."
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "description": "",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "Collection."
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "requestBody":{
+            "content": {
+              "application/json": {
+                "schema":{
+                  "type": "object",
+                  "properties": 
+                  {
+                    "class": {
+                      "example": "An example class."
+                    },
+                    "year": {
+                      "example": "An example year."
+                    },
+                    "semester": {
+                      "example": "An example of a semester."
+                    },
+                    "teacher": {
+                      "example": "An example teacher."
+                    },
+                    "school": {
+                      "example": "An example school."
+                    },
+                    "author": [],
+                    "cards": [],
+                    "belongsToFolder": []
+                  }
+                }
+                
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "Collection."
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "description": "",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      } 
+    },
+    "components": {
+      "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
+  }
   }

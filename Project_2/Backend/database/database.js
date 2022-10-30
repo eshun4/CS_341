@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-dotenv.config({ path: '../../.env' });
+const ENVIRONMENT_VARIABLES = require("../encryption/dotenv");
 
-const URI = process.env.DB_URI
-const dbName = process.env.DB_NAME;
+const URI = ENVIRONMENT_VARIABLES.Database_URI
+const dbName = ENVIRONMENT_VARIABLES.Database_Name;
 
 async function connect(){
     const db =  mongoose.connect(URI + "/"+ dbName + "?retryWrites=true", {useNewUrlParser:true});
