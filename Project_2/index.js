@@ -20,7 +20,7 @@ wss.on('connection', function connection(ws) {
     ws.on('message', function message(data) {
       wss.clients.forEach(function each(client) {
         console.log("Received: " + data);
-        client.send("Message Received!")
+        client.send(""+ data)
       });
     });
   });
