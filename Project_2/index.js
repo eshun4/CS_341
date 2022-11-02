@@ -14,7 +14,7 @@ app.use(cors());
 app.use(routes);
 var wss = new WebSocket.Server({server:server});
 
-
+//Listen to connection
 wss.on('connection', function connection(ws) {
     console.log("Connected!");
     ws.on('message', function message(data) {
