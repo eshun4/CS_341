@@ -5,7 +5,7 @@ const profileSchema = require("../models/schemas/profile");
 const convertError = require("../utilities/handlers");
 const ENVIRONMENT_VARIABLES = require("../encryption/dotenv");
 
-// Upload current user's profile
+// Add current user's profile
 exports.profile = (
     async(req, res)=>{
         var db = await connect();

@@ -31,9 +31,6 @@ const userSchema = new mongoose.Schema({
     password :{
         type:String, 
         validate:usernameValidator[0].validator2,},
-    profile: [{
-      type:mongoose.Types.ObjectId, 
-      ref:ENVIRONMENT_VARIABLES.Database_Collection_5}]
 },
 {
   timestamps: true,

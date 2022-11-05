@@ -78,7 +78,7 @@ usersRouter.get("/dashboard", userCont.dashBoard);
 //Login user
 usersRouter.route("/login").post(authCont.login);
  //Logout user
-usersRouter.route("/logout").get(authCont.logout)
+usersRouter.route("/logout").get(authCont.logout);
 //Register user
 usersRouter.route("/register").post(authCont.register);
 usersRouter.get('/google', authCont.googleSignIn);
